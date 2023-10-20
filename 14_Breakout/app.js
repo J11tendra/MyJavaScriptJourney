@@ -120,12 +120,18 @@ function checkForCollision() {
             ((ballCurrentPosition[1] + ballDiameter) > blocks[i].bottomLeft[1] && ballCurrentPosition[1] < blocks[i].topLeft[1])
         ) {
             const allBlocks = Array.from(document.querySelectorAll(".block"));
-            // console.log();
             allBlocks[i].classList.remove("block");
             blocks.splice(i, 1);
             changeDirection();
             score++;
             scoreDisplay.textContent = score;
+
+            // for win;
+            if (blocks.length === 0) {
+                scoreDisplay.textContent = "You win!!";
+                clearInterval(timerId);
+                document.removeEventListener("keydown", moveUser);
+            }
         }
     }
 
